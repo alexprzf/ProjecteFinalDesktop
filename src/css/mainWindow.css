@@ -1,0 +1,31 @@
+#mainWindow {
+    -fx-background-radius: 30;
+    -fx-background-image: url("../img/login.png");
+}
+.loginTextfields {
+    -fx-background-radius: 20;
+    -fx-background-color: #EB690B;
+    -fx-text-inner-color: white;
+    -fx-font-size: 15;
+}
+#closeBtn{
+    -fx-background-color: transparent;
+    -fx-background-image: url("../img/closeButton.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-radius: 100;
+    -fx-background-insets: 0;
+}
+#closeBtn:hover {
+    -fx-effect: dropshadow(three-pass-box, rgb(158, 152, 152), 10, 0, 0, 2);
+}
+#minimizeBtn{
+    -fx-background-color: transparent;
+    -fx-background-image: url("../img/minimizeButton.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-radius: 100;
+    -fx-background-insets: 0;
+}
+#minimizeBtn:hover {
+    -fx-effect: dropshadow(three-pass-box, rgb(158, 152, 152), 10, 0, 0, 2);
+}
+
