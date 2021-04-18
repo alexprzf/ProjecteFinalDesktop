@@ -12,12 +12,16 @@ public class LoginWindow {
         username.setPrefSize(283, 32);
         username.setLayoutX(87);
         username.setLayoutY(384);
+        username.setPromptText("Username");
+
         PasswordField password = new PasswordField();
         password.getStyleClass().add("loginTextfields");
         password.setPrefSize(283, 32);
         password.setLayoutX(87);
         password.setLayoutY(434);
+        password.setPromptText("Password");
 
+        root.requestFocus();
         root.setId("mainWindow");
         root.getChildren().add(username);
         root.getChildren().add(password);

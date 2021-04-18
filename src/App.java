@@ -4,20 +4,17 @@ import javafx.stage.Stage;
 
 public class App extends Application{
 
-    
-
-
     public void start(Stage primaryStage) {
 
-        LoginWindow loginWindow = new LoginWindow();
+        WindowManager windowManager = new WindowManager();
         DispatcherManager dispatcherManager = new DispatcherManager();
         Pane  root = new Pane();
 
         //Check if user is logged
         if(!dispatcherManager.getValue("user").isEmpty() && !dispatcherManager.getValue("password").isEmpty()){
-            root = null;
+            root = windowManager.getWindow("Login");
         }else{
-            root = loginWindow.getPane();
+            root = windowManager.getWindow("Login");
         }
 
         WindowActions windowBarActions = new WindowActions(root,primaryStage);
