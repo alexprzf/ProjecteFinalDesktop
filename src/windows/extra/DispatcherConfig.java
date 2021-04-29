@@ -1,3 +1,5 @@
+package windows.extra;
+
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -12,14 +14,13 @@ import javafx.stage.StageStyle;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.net.URL;
 import java.util.Scanner;
 
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 
 
-public class DispatcherConfigurations {
+public class DispatcherConfig {
     Stage secondStage = new Stage();
     private double xOffset = 0;
     private double yOffset = 0;
@@ -34,12 +35,12 @@ public class DispatcherConfigurations {
     public void init(){
         Pane dispatcherConfigPane = new Pane();
         secondScene = new Scene(dispatcherConfigPane,576,505);
+        secondScene.getStylesheets().add("css/mainWindow.css");
         dispatcherConfigPane.setId("dispatchersConfigurationFrame");
         secondScene.setFill(Color.TRANSPARENT);    
         secondStage.initStyle(StageStyle.TRANSPARENT);
         secondStage.setTitle("PS-Dispatcher");
         secondStage.setScene(secondScene);
-        secondStage.getScene().getStylesheets().setAll(App.class.getResource("css/mainWindow.css").toString());
 
         addDispatcher.setLayoutX(355);
         addDispatcher.setLayoutY(169);
@@ -106,8 +107,7 @@ public class DispatcherConfigurations {
     }
     public void readCongif(){
         try {
-            URL url = getClass().getResource("files/dispatchers.txt");
-            File myObj = new File(url.getPath());
+            File myObj = new File("src/files/dispatchers.txt");
             Scanner myReader = new Scanner(myObj);
             while (myReader.hasNextLine()) {
               String dispatcherName = myReader.nextLine();
@@ -142,3 +142,4 @@ public class DispatcherConfigurations {
         return secondStage;
     }
 }
+

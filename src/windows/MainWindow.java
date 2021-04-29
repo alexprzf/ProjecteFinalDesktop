@@ -1,35 +1,17 @@
+package windows;
 
-
-import java.io.IOException;
-
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.image.Image;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundImage;
-import javafx.scene.layout.BackgroundPosition;
-import javafx.scene.layout.BackgroundRepeat;
-import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
+import windows.extra.DispatcherConfig;
 
-public class DispatchersWindows {
-    WindowActions windowActions;
-    public DispatchersWindows(WindowActions windowActions){
-        this.windowActions = windowActions;
-    }
-    public void getPane(){
+public class MainWindow {
+ 
+    public static Pane getPane(){
         Pane root = new Pane();
-        DispatcherConfigurations dispatcherConfigurations = new DispatcherConfigurations();
+        DispatcherConfig dispatcherConfigurations = new DispatcherConfig();
         dispatcherConfigurations.init();
 
         ScrollPane sp = new ScrollPane();
@@ -107,7 +89,8 @@ public class DispatchersWindows {
         root.getChildren().add(sp);
         root.getChildren().add(addDispatchers);
         System.out.println("Hola");
-        root.setId("DispatchersWindow");
-        windowActions.windowBarActionsIni(root);       
+        root.setId("DispatchersWindow");    
+        
+        return root;
     }
 }

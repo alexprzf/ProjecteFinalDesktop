@@ -1,3 +1,4 @@
+package windows;
 import javafx.event.EventHandler;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -6,13 +7,10 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import windows.extra.ApiConnect;
+import windows.extra.DispatcherManager;
 
 public class LoginWindow {
-    WindowActions windowActions;
-    DispatcherManager dispatcherManager = new DispatcherManager();
-    public LoginWindow(WindowActions windowActions){
-        this.windowActions = windowActions;
-    }
 
     public void getPane(){
         Pane root = new Pane();
@@ -55,9 +53,9 @@ public class LoginWindow {
                     System.out.println("Enter password");
                     if(ApiConnect.getLoginAuth(username.getText(), password.getText())){
                         System.out.println("Credencials correctes");
-                        dispatcherManager.modifiyProperties("user", username.getText());
-                        dispatcherManager.modifiyProperties("password", password.getText());
-                        new DispatchersWindows(windowActions).getPane();
+                        DispatcherManager.modifiyProperties("PATH","user", username.getText());
+                        DispatcherManager.modifiyProperties("PATH","password", password.getText());
+                        //new DispatchersWindows(windowActions).getPane();
                     }else{
                         warningText.setFill(Color.RED);
                         System.out.println("Credencials erronis");
@@ -66,7 +64,7 @@ public class LoginWindow {
             }
         });
 
-        windowActions.windowBarActionsIni(root);
+        //windowActions.windowBarActionsIni(root);
     }
 
 }

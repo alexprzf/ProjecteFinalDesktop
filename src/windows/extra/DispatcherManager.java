@@ -1,3 +1,4 @@
+package windows.extra;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -12,11 +13,8 @@ public class DispatcherManager {
     public final String dispatcherPath = "C:/Users/Alex Curro/Desktop/ps-dispatcher-1.8.181/";
     private Map<String,String> uploaderProperties;
 
-    public DispatcherManager(){
-        this.uploaderProperties = new HashMap<>();
-        loadProperties();
-    }
     public void loadProperties(){
+        uploaderProperties = new HashMap<>();
         try {
             File myObj = new File(dispatcherPath+"uploader.properties");
             Scanner myReader = new Scanner(myObj);
@@ -40,9 +38,9 @@ public class DispatcherManager {
         return this.uploaderProperties.get(key);
     }
 
-    public void modifiyProperties(String property, String newValue)
+    public static void modifiyProperties(String property, String newValue,String dispatcherPath)
     {
-        File fileToBeModified = new File(this.dispatcherPath+"uploader.properties");
+        File fileToBeModified = new File(dispatcherPath+"uploader.properties");
          
         String newContent = "";
          
