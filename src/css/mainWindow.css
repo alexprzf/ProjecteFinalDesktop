@@ -1,12 +1,74 @@
-#mainWindow {
+#LoginWindow {
     -fx-background-radius: 30;
     -fx-background-image: url("../img/login.png");
+}
+#DispatchersWindow {
+    -fx-background-radius: 30;
+    -fx-background-image: url("../img/dispatchers.png");
+}
+.dispatcherItem{
+    -fx-background-color: #EB690B;
+    -fx-background-radius: 20;
+}
+#Scroll{
+    -fx-background: transparent;
+    -fx-background-radius: 20;
+    -fx-background-color: transparent;
+}
+.scroll-bar .increment-button{
+    -fx-opacity: 0;
+}
+.scroll-bar .decrement-button{
+    -fx-opacity: 0;
+}
+.scroll-bar:horizontal {
+    -fx-background-color: transparent;
+  }
+.scroll-bar:horizontal .track {
+    -fx-opacity: 0;
+  }
+.scroll-bar:horizontal .track-background {
+    -fx-opacity: 0;
+  }
+.scroll-bar:horizontal .thumb {
+    -fx-background-color: white;
+    -fx-background-radius: 5em;
+}
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
+  }
+.scroll-bar:vertical .track {
+    -fx-opacity: 0;
+  }
+.scroll-bar:vertical .track-background {
+    -fx-opacity: 0;
+  }
+.scroll-bar:vertical .thumb {
+    -fx-background-color: white;
+    -fx-background-radius: 5em;
 }
 .loginTextfields {
     -fx-background-radius: 20;
     -fx-background-color: #EB690B;
     -fx-text-inner-color: white;
     -fx-font-size: 15;
+}
+#dispatchersConfigurationFrame{
+    -fx-background-color: transparent;
+    -fx-background-image: url("../img/dispatchersConfigurationFrame.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-radius: 100;
+    -fx-background-insets: 0;
+}
+#dispatchersConfigurationButton{
+    -fx-background-color: transparent;
+    -fx-background-image: url("../img/dispatchersConfigurationButton.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-radius: 100;
+    -fx-background-insets: 0;
+}
+#dispatchersConfigurationButton:hover {
+    -fx-effect: dropshadow(three-pass-box, #EB690B, 10, 0, 0, 2);
 }
 #closeBtn{
     -fx-background-color: transparent;
@@ -26,6 +88,16 @@
     -fx-background-insets: 0;
 }
 #minimizeBtn:hover {
+    -fx-effect: dropshadow(three-pass-box, rgb(158, 152, 152), 10, 0, 0, 2);
+}
+#addDispatcherBtn{
+    -fx-background-color: transparent;
+    -fx-background-image: url("../img/addBtn.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-radius: 100;
+    -fx-background-insets: 0;
+}
+#addDispatcherBtn:hover {
     -fx-effect: dropshadow(three-pass-box, rgb(158, 152, 152), 10, 0, 0, 2);
 }
 

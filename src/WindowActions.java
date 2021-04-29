@@ -10,17 +10,17 @@ import javafx.stage.StageStyle;
 public class WindowActions {
     private double xOffset;
     private double yOffset;
-    private Pane pane;
     private Stage stage;
+    private Pane root = new Pane();
+    Scene scene = new Scene(root, 1000, 600);;
 
-    public WindowActions(Pane pane,Stage stage){
+    public WindowActions(Stage stage){
         this.xOffset = 0;
         this.yOffset = 0;
-        this.pane = pane;
         this.stage = stage;
     }
 
-    public void windowBarActionsIni(){
+    public void windowBarActionsIni(Pane pane){
         Button closeButton = new Button();
         closeButton.setLayoutX(944);
         closeButton.setLayoutY(28);
@@ -58,10 +58,12 @@ public class WindowActions {
                 stage.setY(event.getScreenY() - yOffset);
             }
         });
+
+        this.root = pane;
+        this.scene.setRoot(pane);
     }
 
     public void start(){
-        Scene scene = new Scene(pane, 1000, 600);
         scene.setFill(Color.TRANSPARENT);
         
         stage.initStyle(StageStyle.TRANSPARENT);

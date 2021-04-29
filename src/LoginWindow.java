@@ -1,12 +1,21 @@
+import javafx.event.EventHandler;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 
 public class LoginWindow {
+    WindowActions windowActions;
+    DispatcherManager dispatcherManager = new DispatcherManager();
+    public LoginWindow(WindowActions windowActions){
+        this.windowActions = windowActions;
+    }
 
-    public Pane getPane(){
-        Pane  root = new Pane();
-        
+    public void getPane(){
+        Pane root = new Pane();
         TextField username = new TextField();
         username.getStyleClass().add("loginTextfields");
         username.setPrefSize(283, 32);
@@ -21,11 +30,43 @@ public class LoginWindow {
         password.setLayoutY(434);
         password.setPromptText("Password");
 
-        root.requestFocus();
-        root.setId("mainWindow");
+        Text warningText = new Text(110, 370, "Credencials erronis");
+        warningText.setFill(Color.TRANSPARENT); 
+
+        root.setId("LoginWindow");
         root.getChildren().add(username);
         root.getChildren().add(password);
+        root.getChildren().add(warningText);
 
-        return root;
+        username.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent ke) {
+                if (ke.getCode().equals(KeyCode.ENTER)) {
+                    System.out.println("Enter username");
+                    password.requestFocus();
+                }
+            }
+        });
+
+        password.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent ke) {
+                if (ke.getCode().equals(KeyCode.ENTER)) {
+                    System.out.println("Enter password");
+                    if(ApiConnect.getLoginAuth(username.getText(), password.getText())){
+                        System.out.println("Credencials correctes");
+                        dispatcherManager.modifiyProperties("user", username.getText());
+                        dispatcherManager.modifiyProperties("password", password.getText());
+                        new DispatchersWindows(windowActions).getPane();
+                    }else{
+                        warningText.setFill(Color.RED);
+                        System.out.println("Credencials erronis");
+                    }
+                }
+            }
+        });
+
+        windowActions.windowBarActionsIni(root);
     }
+
 }

@@ -1,11 +1,17 @@
-import javafx.scene.layout.Pane;
 
 public class WindowManager {
-    public Pane getWindow(String window){
+    WindowActions windowActions;
+    public WindowManager(WindowActions windowActions){
+        this.windowActions = windowActions;
+    }
+    public void swapWindow(String window){
         switch(window){
             case "Login":
-                return new LoginWindow().getPane(); 
+                new LoginWindow(this.windowActions).getPane(); 
+                break;
+            case "Dispatchers":
+                new DispatchersWindows(this.windowActions).getPane();
+                break;
         }
-        return null;
     }
 }
