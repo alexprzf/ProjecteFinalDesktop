@@ -3,20 +3,30 @@ package windows.extra;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.Writer;
 import java.util.Scanner;
 
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.input.MouseEvent;
 
 
@@ -73,6 +83,8 @@ public class DispatcherConfig {
         sp.setLayoutY(252);
         sp.setPrefSize(526, 209);
         sp.setId("Scroll");
+        interiorScroll.setAlignment(Pos.CENTER);
+        interiorScroll.setSpacing(30);
         sp.setContent(interiorScroll);
 
         readCongif();
@@ -84,6 +96,15 @@ public class DispatcherConfig {
 
         closeButton.setOnAction(e -> {
             secondStage.close();
+        });
+
+        addDispatcher.setOnAction(e -> {
+            try {
+                addDispatcher();
+            } catch (IOException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
         });
 
         minimizeButton.setOnAction(e -> {
@@ -105,14 +126,33 @@ public class DispatcherConfig {
             }
         });
     }
+    private void addDispatcher() throws IOException {
+        DirectoryChooser directoryChooser = new DirectoryChooser();
+        directoryChooser.setInitialDirectory(new File("src"));
+        File selectedDirectory = directoryChooser.showDialog(secondStage);
+        String dispatcherPath = selectedDirectory.getAbsolutePath();
+        TextInputDialog td = new TextInputDialog("Enter dispatcher name");
+        td.showAndWait();
+        String dispatcherName = td.getEditor().getText();
+        addDispatcherToFile(dispatcherPath,dispatcherName);
+    }
+    private void addDispatcherToFile(String dispatcherPath, String dispatcherName) throws IOException {
+        Writer output;
+        output = new BufferedWriter(new FileWriter("src/files/dispatchers.txt",true));
+        output.append(dispatcherName+"\n");
+        output.append(dispatcherPath+"\n");
+        output.close();
+        readCongif();
+    }
     public void readCongif(){
+        interiorScroll.getChildren().clear();
         try {
             File myObj = new File("src/files/dispatchers.txt");
             Scanner myReader = new Scanner(myObj);
             while (myReader.hasNextLine()) {
               String dispatcherName = myReader.nextLine();
               String dispatcherPath = myReader.nextLine();
-              createAndAddData(new Pane(),new Text(dispatcherName),new Text(dispatcherPath));
+              createAndAddData(new Pane(),new Text(dispatcherName),new Text(dispatcherPath),new Button());
             }
             myReader.close();
           } catch (FileNotFoundException e) {
@@ -120,9 +160,67 @@ public class DispatcherConfig {
             e.printStackTrace();
           }
     }
-    public void createAndAddData(Pane panel,Text dispatcherName,Text dispatcherPath){
+    public void deleteDispatcher(String dispatcher) throws IOException{
+        try {
+            File inputFile = new File("src/files/dispatchers.txt");
+            //Construct the new file that will later be renamed to the original filename.
+            File tempFile = new File(inputFile.getAbsolutePath() + ".tmp");
+            BufferedReader br = new BufferedReader(new FileReader("src/files/dispatchers.txt"));
+            PrintWriter pw = new PrintWriter(new FileWriter(tempFile));
+            String line = null;
+            Boolean skip = false;
+
+            //Read from the original file and write to the new
+            //unless content matches data to be removed.
+            while ((line = br.readLine()) != null) {
+                if (!line.trim().equals(dispatcher) && !skip) {
+                    pw.println(line);
+                    pw.flush();
+                }else if(skip){
+                    skip=false;
+                }else{
+                    skip=true;
+                }
+            }
+            pw.close();
+            br.close();
+
+            //Delete the original file
+            if (!inputFile.delete()) {
+                System.out.println("Could not delete file");
+                return;
+            }
+
+            //Rename the new file to the filename the original file had.
+            if (!tempFile.renameTo(inputFile)){
+                System.out.println("Could not rename file");
+            }
+            readCongif();
+            }
+        catch (FileNotFoundException ex) {
+            ex.printStackTrace();
+        }catch (IOException ex) {
+            ex.printStackTrace();
+        } 
+    }
+    public void createAndAddData(Pane panel,Text dispatcherName,Text dispatcherPath,Button deleteButton){
         panel.getStyleClass().add("dispatcherItem");
         panel.setPrefHeight(60);
+
+        deleteButton.setPrefSize(35,35);
+        deleteButton.setLayoutX(460);
+        deleteButton.setLayoutY(13);
+        deleteButton.setId("deleteButton");
+
+        deleteButton.setOnAction(e -> {
+            try {
+                deleteDispatcher(dispatcherName.getText());
+            } catch (IOException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
+        });
+
 
         dispatcherName.setFont(Font.font("Roboto",FontWeight.BOLD,18));
         dispatcherName.setFill(Color.web("FFFFFF"));
@@ -134,6 +232,7 @@ public class DispatcherConfig {
         dispatcherPath.setLayoutX(10);
         dispatcherPath.setLayoutY(50);
 
+        panel.getChildren().add(deleteButton);
         panel.getChildren().add(dispatcherName);
         panel.getChildren().add(dispatcherPath);
         interiorScroll.getChildren().addAll(panel);

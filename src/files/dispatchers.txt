@@ -1,4 +1,2 @@
-Dispatcher 1
-C:/Users/Alex Curro/Desktop/ps-dispatcher-1.8.181/
-Dispatcher 2
-C:/Users/Alex Curro/Desktop/ps-dispatcher-1.8.181/
+Dispatcher Principal
+C:\Users\Alex\Desktop\ps-dispatcher-1.8.181

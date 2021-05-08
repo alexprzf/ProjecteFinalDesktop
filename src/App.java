@@ -1,13 +1,13 @@
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import windows.MainWindow;
-import javafx.event.EventHandler;
-import javafx.scene.input.MouseEvent;
 
 public class App extends Application{
     private int pageNum = 0;

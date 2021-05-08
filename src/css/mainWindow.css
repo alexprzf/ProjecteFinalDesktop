@@ -60,6 +60,16 @@
     -fx-background-radius: 100;
     -fx-background-insets: 0;
 }
+#deleteButton{
+    -fx-background-color: transparent;
+    -fx-background-image: url("../img/delete.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-radius: 100;
+    -fx-background-insets: 0;
+}
+#deleteButton:hover {
+    -fx-effect: dropshadow(three-pass-box, red, 10, 0, 0, 2);
+}
 #dispatchersConfigurationButton{
     -fx-background-color: transparent;
     -fx-background-image: url("../img/dispatchersConfigurationButton.png");
