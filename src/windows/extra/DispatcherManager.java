@@ -10,10 +10,9 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class DispatcherManager {
-    public final String dispatcherPath = "C:/Users/Alex Curro/Desktop/ps-dispatcher-1.8.181/";
-    private Map<String,String> uploaderProperties;
+    private static Map<String,String> uploaderProperties;
 
-    public void loadProperties(){
+    public static void loadProperties(String dispatcherPath){
         uploaderProperties = new HashMap<>();
         try {
             File myObj = new File(dispatcherPath+"uploader.properties");
@@ -22,7 +21,7 @@ public class DispatcherManager {
               String data = myReader.nextLine();
               try {
                 data.substring(0,data.indexOf("="));
-                this.uploaderProperties.put(data.substring(0,data.indexOf("=")), data.substring(data.indexOf("=")+1,data.length()).trim());
+                uploaderProperties.put(data.substring(0,data.indexOf("=")), data.substring(data.indexOf("=")+1,data.length()).trim());
                 
               } catch (Exception e) {
                   System.out.println("Line empty");
@@ -34,8 +33,8 @@ public class DispatcherManager {
             e.printStackTrace();
           }
     }
-    public String getValue(String key){
-        return this.uploaderProperties.get(key);
+    public static String getValue(String key){
+        return uploaderProperties.get(key);
     }
 
     public static void modifiyProperties(String property, String newValue,String dispatcherPath)

@@ -6,6 +6,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import windows.extra.DispatcherConfig;
+import windows.extra.DispatcherListBuilder;
 
 public class MainWindow {
  
@@ -41,44 +42,10 @@ public class MainWindow {
 
         HBox interiorScroll = new HBox();
 
-        Pane cuadrat1 = new Pane();
-        cuadrat1.setPrefSize(240,184);
-        cuadrat1.setMinSize(240,184);
-        cuadrat1.getStyleClass().add("dispatcherItem");
-
-        Pane cuadrat2 = new Pane();
-        cuadrat2.setPrefSize(240,184);
-        cuadrat2.setMinSize(240,184);
-        cuadrat2.getStyleClass().add("dispatcherItem");
-
-        Pane cuadrat3 = new Pane();
-        cuadrat3.setPrefSize(240,184);
-        cuadrat3.setMinSize(240,184);
-        cuadrat3.getStyleClass().add("dispatcherItem");
-
-        Pane cuadrat4 = new Pane();
-        cuadrat4.setPrefSize(240,184);
-        cuadrat4.setMinSize(240,184);
-        cuadrat4.getStyleClass().add("dispatcherItem");
-
-        Pane cuadrat5 = new Pane();
-        cuadrat5.setPrefSize(240,184);
-        cuadrat5.setMinSize(240,184);
-        cuadrat5.getStyleClass().add("dispatcherItem");
-
-        Pane cuadrat6 = new Pane();
-        cuadrat6.setPrefSize(240,184);
-        cuadrat6.setMinSize(240,184);
-        cuadrat6.getStyleClass().add("dispatcherItem");
+        DispatcherListBuilder.buildList(interiorScroll);
 
         interiorScroll.setAlignment(Pos.CENTER);
         interiorScroll.setSpacing(30);
-        interiorScroll.getChildren().add(cuadrat1);
-        interiorScroll.getChildren().add(cuadrat2);
-        interiorScroll.getChildren().add(cuadrat3);
-        interiorScroll.getChildren().add(cuadrat4);
-        interiorScroll.getChildren().add(cuadrat5);
-        interiorScroll.getChildren().add(cuadrat6);
         interiorScroll.setId("InnerScroll");
         
 

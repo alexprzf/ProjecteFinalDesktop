@@ -1,2 +1,4 @@
-Dispatcher Principal
+Dispatcher 1
 C:\Users\Alex\Desktop\ps-dispatcher-1.8.181
+sadasda
+C:\Users\Alex\Documents\GitHub\ProjecteFinalDesktop\src\windows
