@@ -12,7 +12,7 @@ import java.util.Scanner;
 public class DispatcherManager {
     private static Map<String,String> uploaderProperties;
 
-    public static void loadProperties(String dispatcherPath){
+    public boolean loadProperties(String dispatcherPath){
         uploaderProperties = new HashMap<>();
         try {
             File myObj = new File(dispatcherPath+"uploader.properties");
@@ -24,22 +24,22 @@ public class DispatcherManager {
                 uploaderProperties.put(data.substring(0,data.indexOf("=")), data.substring(data.indexOf("=")+1,data.length()).trim());
                 
               } catch (Exception e) {
-                  System.out.println("Line empty");
+                  System.out.println("");
               }
             }
             myReader.close();
+            return true;
           } catch (FileNotFoundException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
+            return false;
           }
     }
-    public static String getValue(String key){
+    public String getValue(String key){
         return uploaderProperties.get(key);
     }
 
-    public static void modifiyProperties(String property, String newValue,String dispatcherPath)
+    public static void modifiyProperties(String dispatcherPath,String property, String newValue)
     {
-        File fileToBeModified = new File(dispatcherPath+"uploader.properties");
+        File fileToBeModified = new File(dispatcherPath+"/uploader.properties");
          
         String newContent = "";
          

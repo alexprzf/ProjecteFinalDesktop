@@ -1,14 +1,34 @@
 #LoginWindow {
     -fx-background-radius: 30;
     -fx-background-image: url("../img/login.png");
+    -fx-border-radius: 20px;
+    -fx-border-color: black; 
 }
 #DispatchersWindow {
     -fx-background-radius: 30;
     -fx-background-image: url("../img/dispatchers.png");
+    -fx-border-radius: 20px;
+    -fx-border-color: black; 
+}
+#MainFoldersWindow {
+    -fx-background-radius: 30;
+    -fx-background-image: url("../img/dispatcherFolders.png");
+    -fx-border-radius: 20px;
+    -fx-border-color: black; 
+}
+.pdfItem{
+    -fx-background-image: url("../img/pdfIcon.png");
+}
+.dispatcherItemList{
+    -fx-background-color: #EB690B;
+    -fx-background-radius: 20;
 }
 .dispatcherItem{
     -fx-background-color: #EB690B;
     -fx-background-radius: 20;
+}
+.dispatcherItem:hover{
+    -fx-effect: dropshadow(three-pass-box, white, 5, 0, 0, 2);
 }
 #Scroll{
     -fx-background: transparent;
@@ -59,6 +79,8 @@
     -fx-background-repeat: no-repeat;
     -fx-background-radius: 100;
     -fx-background-insets: 0;
+    -fx-border-radius: 20px;
+    -fx-border-color: black; 
 }
 #deleteButton{
     -fx-background-color: transparent;
@@ -69,6 +91,16 @@
 }
 #deleteButton:hover {
     -fx-effect: dropshadow(three-pass-box, red, 10, 0, 0, 2);
+}
+#backBtn{
+    -fx-background-color: transparent;
+    -fx-background-image: url("../img/backBtn.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-radius: 100;
+    -fx-background-insets: 0;
+}
+#backBtn:hover {
+    -fx-effect: dropshadow(three-pass-box, rgb(158, 152, 152), 10, 0, 0, 2);
 }
 #dispatchersConfigurationButton{
     -fx-background-color: transparent;

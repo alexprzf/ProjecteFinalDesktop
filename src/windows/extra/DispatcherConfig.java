@@ -41,7 +41,12 @@ public class DispatcherConfig {
     Button addDispatcher = new Button();
     Text addDispatcherText = new Text();
     VBox interiorScroll = new VBox();
+    GUIInteraction gui;
 
+
+    public DispatcherConfig(GUIInteraction gui) {
+        this.gui=gui;
+    }
     public void init(){
         Pane dispatcherConfigPane = new Pane();
         secondScene = new Scene(dispatcherConfigPane,576,505);
@@ -95,6 +100,7 @@ public class DispatcherConfig {
         dispatcherConfigPane.getChildren().add(closeButton);
 
         closeButton.setOnAction(e -> {
+            gui.swapWindow(gui.getMainWindow().getPane());
             secondStage.close();
         });
 
@@ -204,7 +210,7 @@ public class DispatcherConfig {
         } 
     }
     public void createAndAddData(Pane panel,Text dispatcherName,Text dispatcherPath,Button deleteButton){
-        panel.getStyleClass().add("dispatcherItem");
+        panel.getStyleClass().add("dispatcherItemList");
         panel.setPrefHeight(60);
 
         deleteButton.setPrefSize(35,35);
@@ -216,7 +222,6 @@ public class DispatcherConfig {
             try {
                 deleteDispatcher(dispatcherName.getText());
             } catch (IOException e1) {
-                // TODO Auto-generated catch block
                 e1.printStackTrace();
             }
         });

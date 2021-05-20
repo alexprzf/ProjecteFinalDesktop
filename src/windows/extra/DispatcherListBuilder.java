@@ -14,18 +14,26 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 
 public class DispatcherListBuilder {
-    static List<Map<String, String>> dispatchersValues = new ArrayList<>();
-    public static void buildList(HBox generalPanel){
+    GUIInteraction gui;
+    List<Map<String, String>> dispatchersValues;
+    public DispatcherListBuilder(GUIInteraction gui){
+        this.gui=gui;
+        this.dispatchersValues=new ArrayList<>();
+    }
+
+    public void buildList(HBox generalPanel){
         getPathsAndName();
+        DispatcherManager dispatcherManager = new DispatcherManager();
         for (int i = 0; i < dispatchersValues.size(); i++) {
-            DispatcherManager.loadProperties(dispatchersValues.get(i).get("path")+"/");
-            if(DispatcherManager.getValue("inbox")!=null){
-                dispatchersValues.get(i).put("inbox",String.valueOf(getFileNumber(DispatcherManager.getValue("inbox"))));
-                dispatchersValues.get(i).put("ok",String.valueOf(getFileNumber(DispatcherManager.getValue("ok"))));
-                dispatchersValues.get(i).put("reject",String.valueOf(getFileNumber(DispatcherManager.getValue("reject"))));
-                dispatchersValues.get(i).put("signed",String.valueOf(getFileNumber(DispatcherManager.getValue("signed"))));
+            dispatcherManager.loadProperties(dispatchersValues.get(i).get("path")+"/");
+            if(dispatcherManager.getValue("inbox")!=null){
+                dispatchersValues.get(i).put("inbox",String.valueOf(getFileNumber(dispatcherManager.getValue("inbox"))));
+                dispatchersValues.get(i).put("ok",String.valueOf(getFileNumber(dispatcherManager.getValue("ok"))));
+                dispatchersValues.get(i).put("reject",String.valueOf(getFileNumber(dispatcherManager.getValue("reject"))));
+                dispatchersValues.get(i).put("signed",String.valueOf(getFileNumber(dispatcherManager.getValue("signed"))));
             }
         }
         for (int i = 0; i < dispatchersValues.size(); i++) {
@@ -34,8 +42,22 @@ public class DispatcherListBuilder {
         
     }
 
-    private static void generateBlock(int i, HBox generalPanel) {
+    private void generateBlock(int i, HBox generalPanel) {
         Pane block = new Pane();
+        block.setOnMouseClicked(event -> {
+            DispatcherManager dispatcherManager = new DispatcherManager();
+            boolean isValid = dispatcherManager.loadProperties(dispatchersValues.get(i).get("path"));
+            if(isValid){
+                if(ApiConnect.getLoginAuth(dispatcherManager.getValue("user"), dispatcherManager.getValue("password"))){
+                    System.out.println("Credencials correctes");
+                    gui.getMainFoldersWindow().setPath(dispatchersValues.get(i).get("path"));
+                    gui.swapWindow(gui.getMainFoldersWindow().getPane());
+                }else{
+                    gui.getLoginWindow().setPath(dispatchersValues.get(i).get("path"));
+                    gui.swapWindow(gui.getLoginWindow().getPane());
+                }
+            }
+        });
         block.setPrefSize(240,184);
         block.setMinSize(240,184);
         block.getStyleClass().add("dispatcherItem");
@@ -44,33 +66,34 @@ public class DispatcherListBuilder {
             Text wrongDir = new Text("This path is not a dispatcher");
             wrongDir.setFont(Font.font("Roboto",FontWeight.BOLD,16));
             wrongDir.setFill(Color.RED);
-            wrongDir.setLayoutX(54);
+            wrongDir.setWrappingWidth(240);
             wrongDir.setLayoutY(50);
+            wrongDir.setTextAlignment(TextAlignment.CENTER);
             block.getChildren().add(wrongDir);
         }else{
-            Text inbox = new Text(dispatchersValues.get(i).get("inbox"));
+            Text inbox = new Text(TextCat.inboxText+dispatchersValues.get(i).get("inbox"));
             inbox.setFont(Font.font("Roboto",FontWeight.BOLD,12));
             inbox.setFill(Color.web("FFFFFF"));
             inbox.setLayoutX(15);
-            inbox.setLayoutY(119);
+            inbox.setLayoutY(129);
     
-            Text ok = new Text(dispatchersValues.get(i).get("ok"));
+            Text ok = new Text(TextCat.okText+dispatchersValues.get(i).get("ok"));
             ok.setFont(Font.font("Roboto",FontWeight.BOLD,12));
             ok.setFill(Color.web("FFFFFF"));
             ok.setLayoutX(15);
-            ok.setLayoutY(131);
+            ok.setLayoutY(141);
     
-            Text reject = new Text(dispatchersValues.get(i).get("reject"));
+            Text reject = new Text(TextCat.rejectText+dispatchersValues.get(i).get("reject"));
             reject.setFont(Font.font("Roboto",FontWeight.BOLD,12));
             reject.setFill(Color.web("FFFFFF"));
             reject.setLayoutX(15);
-            reject.setLayoutY(143);
+            reject.setLayoutY(153);
     
-            Text signed = new Text(dispatchersValues.get(i).get("signed"));
+            Text signed = new Text(TextCat.signedText+dispatchersValues.get(i).get("signed"));
             signed.setFont(Font.font("Roboto",FontWeight.BOLD,12));
             signed.setFill(Color.web("FFFFFF"));
             signed.setLayoutX(15);
-            signed.setLayoutY(155);
+            signed.setLayoutY(165);
     
             block.getChildren().add(inbox);
             block.getChildren().add(ok);
@@ -81,8 +104,9 @@ public class DispatcherListBuilder {
         Text title = new Text(dispatchersValues.get(i).get("name"));
         title.setFont(Font.font("Roboto",FontWeight.BOLD,24));
         title.setFill(Color.web("FFFFFF"));
-        title.setLayoutX(54);
         title.setLayoutY(34);
+        title.setWrappingWidth(240);
+        title.setTextAlignment(TextAlignment.CENTER);
         block.getChildren().add(title);
         
         
@@ -108,7 +132,7 @@ public class DispatcherListBuilder {
         return count;
     }
 
-    private static void getPathsAndName() {
+    private void getPathsAndName() {
         try {
             File myObj = new File("src/files/dispatchers.txt");
             Scanner myReader = new Scanner(myObj);
@@ -125,4 +149,8 @@ public class DispatcherListBuilder {
             e.printStackTrace();
           }
     }
+
+    public DispatcherListBuilder() {
+    }
+    
 }

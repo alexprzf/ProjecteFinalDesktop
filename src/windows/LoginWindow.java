@@ -9,10 +9,19 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import windows.extra.ApiConnect;
 import windows.extra.DispatcherManager;
+import windows.extra.GUIInteraction;
 
 public class LoginWindow {
+    GUIInteraction gui;
+    String path;
+    public LoginWindow(GUIInteraction gui) {
+        this.gui=gui;
+    }
+    public void setPath(String path){
+        this.path=path;
+    }
 
-    public void getPane(){
+    public Pane getPane(){
         Pane root = new Pane();
         TextField username = new TextField();
         username.getStyleClass().add("loginTextfields");
@@ -53,9 +62,10 @@ public class LoginWindow {
                     System.out.println("Enter password");
                     if(ApiConnect.getLoginAuth(username.getText(), password.getText())){
                         System.out.println("Credencials correctes");
-                        DispatcherManager.modifiyProperties("PATH","user", username.getText());
-                        DispatcherManager.modifiyProperties("PATH","password", password.getText());
-                        //new DispatchersWindows(windowActions).getPane();
+                        DispatcherManager.modifiyProperties(path,"user", username.getText());
+                        DispatcherManager.modifiyProperties(path,"password", password.getText());
+                        gui.getMainFoldersWindow().setPath(path);
+                        gui.swapWindow(gui.getMainFoldersWindow().getPane());
                     }else{
                         warningText.setFill(Color.RED);
                         System.out.println("Credencials erronis");
@@ -64,7 +74,7 @@ public class LoginWindow {
             }
         });
 
-        //windowActions.windowBarActionsIni(root);
+        return root;
     }
 
 }

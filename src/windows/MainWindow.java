@@ -7,12 +7,22 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import windows.extra.DispatcherConfig;
 import windows.extra.DispatcherListBuilder;
+import windows.extra.GUIInteraction;
 
 public class MainWindow {
+    public GUIInteraction gui;
+    public MainWindow(GUIInteraction gui){
+        this.gui=gui;
+    }
+
+    public GUIInteraction getGui(){
+        return this.gui;
+    }
  
-    public static Pane getPane(){
+    public Pane getPane(){
         Pane root = new Pane();
-        DispatcherConfig dispatcherConfigurations = new DispatcherConfig();
+        root.getChildren().clear();
+        DispatcherConfig dispatcherConfigurations = new DispatcherConfig(gui);
         dispatcherConfigurations.init();
 
         ScrollPane sp = new ScrollPane();
@@ -41,8 +51,9 @@ public class MainWindow {
         });
 
         HBox interiorScroll = new HBox();
-
-        DispatcherListBuilder.buildList(interiorScroll);
+        interiorScroll.getChildren().clear();
+        DispatcherListBuilder dispatcherListBuilder = new DispatcherListBuilder(gui);
+        dispatcherListBuilder.buildList(interiorScroll);
 
         interiorScroll.setAlignment(Pos.CENTER);
         interiorScroll.setSpacing(30);
@@ -55,7 +66,6 @@ public class MainWindow {
 
         root.getChildren().add(sp);
         root.getChildren().add(addDispatchers);
-        System.out.println("Hola");
         root.setId("DispatchersWindow");    
         
         return root;
