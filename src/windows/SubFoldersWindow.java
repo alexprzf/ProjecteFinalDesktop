@@ -59,6 +59,12 @@ public class SubFoldersWindow {
         rc.setFillHeight(false);
         interiorScroll.getRowConstraints().add(rc);
 
+        Button addDirButton = new Button();
+        addDirButton.setLayoutX(636);
+        addDirButton.setLayoutY(125);
+        addDirButton.setPrefSize(213,50);
+        addDirButton.setId("dispatchersConfigurationButton");
+
         Button backButton = new Button();
         backButton.setLayoutX(858);
         backButton.setLayoutY(30);
@@ -72,6 +78,7 @@ public class SubFoldersWindow {
         root.setId("MainFoldersWindow");
         root.getChildren().add(sp);
         root.getChildren().add(backButton);
+        root.getChildren().add(addDirButton);
         return root;
     }
 

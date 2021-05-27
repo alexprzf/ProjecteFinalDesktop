@@ -1,4 +1,2 @@
 Dispatcher bo
 C:\Users\Alex\Desktop\ps-dispatcher-1.8.181\
-Gas tet
-C:\Users\Alex\Documents\Github\ProjecteFinalDesktop\src\windows

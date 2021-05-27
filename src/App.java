@@ -1,3 +1,5 @@
+import java.io.IOException;
+
 import javafx.application.Application;
 import javafx.stage.Stage;
 import windows.FinalFolderWindow;
@@ -6,10 +8,11 @@ import windows.MainFoldersWindow;
 import windows.MainWindow;
 import windows.SubFoldersWindow;
 import windows.extra.GUIInteraction;
+import windows.extra.checkDporUpdates;
 
 public class App extends Application{
 
-    public void start(Stage mainStage) {
+    public void start(Stage mainStage) throws IOException {
         GUIInteraction gui = new GUIInteraction(mainStage);
         MainFoldersWindow mainFoldersWindow = new MainFoldersWindow(gui);
         SubFoldersWindow subFoldersWindow = new SubFoldersWindow(gui);
@@ -23,6 +26,7 @@ public class App extends Application{
         gui.setFinalFolderWindow(finalFolderWindow);
         
         gui.swapWindow(gui.getMainWindow().getPane());
+        checkDporUpdates.getDispatchersNames();
     }
 
     public static void main(String[] args) {
