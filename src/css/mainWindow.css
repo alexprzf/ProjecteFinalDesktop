@@ -112,6 +112,16 @@
 #dispatchersConfigurationButton:hover {
     -fx-effect: dropshadow(three-pass-box, #EB690B, 10, 0, 0, 2);
 }
+#addDirButton{
+    -fx-background-color: transparent;
+    -fx-background-image: url("../img/addDirButton.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-radius: 100;
+    -fx-background-insets: 0;
+}
+#addDirButton:hover {
+    -fx-effect: dropshadow(three-pass-box, #EB690B, 10, 0, 0, 2);
+}
 #closeBtn{
     -fx-background-color: transparent;
     -fx-background-image: url("../img/closeButton.png");

@@ -12,6 +12,7 @@ import java.util.List;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
@@ -24,6 +25,7 @@ import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import windows.extra.GUIInteraction;
 
 public class SubFoldersWindow {
@@ -63,7 +65,25 @@ public class SubFoldersWindow {
         addDirButton.setLayoutX(636);
         addDirButton.setLayoutY(125);
         addDirButton.setPrefSize(213,50);
-        addDirButton.setId("dispatchersConfigurationButton");
+        addDirButton.setId("addDirButton");
+
+        addDirButton.setOnAction(e ->{
+            TextInputDialog td = new TextInputDialog();
+            Stage stage = (Stage) td.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(new Image("img/appIcon.png"));
+            td.setTitle("Nom del directori");
+            td.setContentText("Escriu un nom");
+            td.setHeaderText(null);
+            td.setGraphic(null);
+            td.showAndWait();
+            String dirName = td.getEditor().getText();
+            if(dirName.length()!=0){
+                File file = new File(path+"/"+dirName);
+                //Creating the directory
+                boolean bool = file.mkdir();
+                gui.swapWindow(gui.getsubFoldersWindow().getPane());
+            }
+        });
 
         Button backButton = new Button();
         backButton.setLayoutX(858);

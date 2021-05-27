@@ -2,8 +2,10 @@ package windows.extra;
 
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -46,6 +48,7 @@ public class DispatcherConfig {
 
     public DispatcherConfig(GUIInteraction gui) {
         this.gui=gui;
+        this.secondStage.getIcons().add(new Image("img/appIcon.png"));
     }
     public void init(){
         Pane dispatcherConfigPane = new Pane();
@@ -137,10 +140,18 @@ public class DispatcherConfig {
         directoryChooser.setInitialDirectory(new File("src"));
         File selectedDirectory = directoryChooser.showDialog(secondStage);
         String dispatcherPath = selectedDirectory.getAbsolutePath();
-        TextInputDialog td = new TextInputDialog("Enter dispatcher name");
+        TextInputDialog td = new TextInputDialog();
+        Stage stage = (Stage) td.getDialogPane().getScene().getWindow();
+        stage.getIcons().add(new Image("img/appIcon.png"));
+        td.setTitle("Nom del dispatcher");
+        td.setContentText("Escriu un nom");
+        td.setHeaderText(null);
+        td.setGraphic(null);
         td.showAndWait();
         String dispatcherName = td.getEditor().getText();
-        addDispatcherToFile(dispatcherPath,dispatcherName);
+        if(dispatcherName.length()!=0){
+            addDispatcherToFile(dispatcherPath,dispatcherName);
+        }
     }
     private void addDispatcherToFile(String dispatcherPath, String dispatcherName) throws IOException {
         Writer output;

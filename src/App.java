@@ -1,6 +1,7 @@
 import java.io.IOException;
 
 import javafx.application.Application;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import windows.FinalFolderWindow;
 import windows.LoginWindow;
@@ -13,6 +14,7 @@ import windows.extra.checkDporUpdates;
 public class App extends Application{
 
     public void start(Stage mainStage) throws IOException {
+        mainStage.getIcons().add(new Image("img/appIcon.png"));
         GUIInteraction gui = new GUIInteraction(mainStage);
         MainFoldersWindow mainFoldersWindow = new MainFoldersWindow(gui);
         SubFoldersWindow subFoldersWindow = new SubFoldersWindow(gui);
