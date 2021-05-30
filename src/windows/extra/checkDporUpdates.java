@@ -20,7 +20,7 @@ public class checkDporUpdates {
     static List<Map<String, String>> dispatchersValues = new ArrayList<>();;
     public static void check(String user, int i) throws IOException{
         
-        URL obj = new URL("http://127.0.0.1:8000/api/getDpor/"+user);
+        URL obj = new URL("http://35.153.192.203:8000/api/getDpor/"+user);
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 		con.setRequestMethod("GET");
 		con.setRequestProperty("User-Agent", USER_AGENT);
@@ -39,7 +39,7 @@ public class checkDporUpdates {
 
 			// print result
 			System.out.println(response.toString());
-            if(response.toString().length()<2){
+            if(response.toString().length()>2){
                 downloadNewDpors(response.toString(),i,user);
             }
 		} else {
@@ -52,8 +52,8 @@ public class checkDporUpdates {
         string = string.replace("\"", "");
         string = string.replace(" ", "");
         String[] list = string.split(",");
-        String url = "http://127.0.0.1:8000/api/getFile/"+user+"/";
-        String url2 = "http://127.0.0.1:8000/api/swapStatus/"+user+"/";
+        String url = "http://35.153.192.203:8000/api/getFile/"+user+"/";
+        String url2 = "http://35.153.192.203:8000/api/swapStatus/"+user+"/";
         String aux;
         for (String string2 : list) {
             System.out.println(string2);

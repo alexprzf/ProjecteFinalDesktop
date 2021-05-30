@@ -15,7 +15,7 @@ public class DispatcherManager {
     public boolean loadProperties(String dispatcherPath){
         uploaderProperties = new HashMap<>();
         try {
-            File myObj = new File(dispatcherPath+"uploader.properties");
+            File myObj = new File(dispatcherPath+"\\uploader.properties");
             Scanner myReader = new Scanner(myObj);
             while (myReader.hasNextLine()) {
               String data = myReader.nextLine();
